@@ -1,0 +1,82 @@
+body {
+  background: linear-gradient(135deg, blue, gold);
+  color: #eee;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
+  margin: 20px;
+  user-select: none;
+}
+
+#controls {
+  margin-bottom: 15px;
+}
+
+#controls button, #controls select {
+  margin: 0 8px 0 0;
+  padding: 8px 14px;
+  font-size: 15px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  background: #0dd427;
+  color: black;
+  transition: background-color 0.3s ease;
+}
+
+#controls button:hover, #controls select:hover {
+  background-color: #2980b9;
+  color: white;
+}
+
+#scoreboard {
+  font-size: 20px;
+  margin-bottom: 12px;
+  font-weight: 600;
+  text-shadow: 2px 4px 2px #0006;
+}
+
+#touch-controls {
+  display: none; /* Default: hidden for all devices */
+  justify-content: space-between;
+  position: fixed;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  transform: translateY(-50%);
+  z-index: 10;
+  padding: 0 10px;
+  pointer-events: none; /* prevent layout interference */
+}
+
+.left-controls,
+.right-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: auto; /* allow button taps */
+}
+
+#touch-controls button {
+  padding: 18px 22px;
+  font-size: 22px;
+  border: none;
+  border-radius: 10px;
+  background-color: #2ecc71;
+  color: white;
+  font-weight: bold;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+  touch-action: manipulation;
+  user-select: none;
+}
+
+canvas {
+  width: 100%;
+  max-width: 880px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  border: 3px solid #34495e;
+  border-radius: 10px;
+  background: linear-gradient(45deg, black, black);
+  box-shadow: 0 0 15px #16a085aa;
+}

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ultimate Ball Spin</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1 id="label"><u><i><b>Ultimate Ball Spin</b></i></u></h1>
+
+  <div id="controls">
+    <button id="startBtn">Start</button>
+    <button id="resetBtn">Reset</button>
+
+    <label for="difficulty"><b>Difficulty:</b></label>
+    <select id="difficulty">
+      <option value="easy">Easy</option>
+      <option value="medium">Medium</option>
+      <option value="hard">Hard</option>
+      <option value="super">Super</option>
+      <option value="extreme">Extreme</option>
+    </select>
+
+    <label for="mode"><b>Mode:</b></label>
+    <select id="mode">
+      <option value="single">Single Player</option>
+      <option value="multi">Multiplayer</option>
+    </select>
+
+    <label for="skin"><b>Ball Color:</b></label>
+    <select id="skin">
+      <option value="#ffffff">White</option>
+      <option value="#ff0000">Red</option>
+      <option value="#00ff00">Green</option>
+      <option value="#0000ff">Blue</option>
+      <option value="#ffff00">Yellow</option>
+      <option value="#ff00ff">Magenta</option>
+      <option value="#00ffff">Cyan</option>
+      <option value="#ffa500">Orange</option>
+    </select>
+  </div>
+
+  <div id="scoreboard">
+    <span id="labelP1">Player score</span>: <span id="player1Score">0</span> &nbsp;&nbsp;
+    <span id="labelP2">CPU score</span>: <span id="player2Score">0</span>
+  </div>
+
+  <canvas id="gameCanvas" width="880" height="372"></canvas>
+
+<div id="touch-controls">
+  <div class="left-controls">
+    <button id="p1-up">▲</button>
+    <button id="p1-down">▼</button>
+  </div>
+  <div class="right-controls">
+    <button id="p2-up">▲</button>
+    <button id="p2-down">▼</button>
+  </div>
+</div>
+
+
+  <script src="script.js" defer></script>
+</body>
+</html>
