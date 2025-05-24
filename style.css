@@ -36,7 +36,7 @@ body {
 }
 
 #touch-controls {
-  display: none; /* Default: hidden for all devices */
+  display: none;
   justify-content: space-between;
   position: fixed;
   top: 50%;
@@ -45,7 +45,7 @@ body {
   transform: translateY(-50%);
   z-index: 10;
   padding: 0 10px;
-  pointer-events: none; /* prevent layout interference */
+  pointer-events: none;
 }
 
 .left-controls,
@@ -53,7 +53,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  pointer-events: auto; /* allow button taps */
+  pointer-events: auto;
 }
 
 #touch-controls button {
@@ -78,5 +78,70 @@ canvas {
   border: 3px solid #34495e;
   border-radius: 10px;
   background: linear-gradient(45deg, black, black);
-  box-shadow: 0 0 15px #16a085aa;
+  box-shadow: 0 0 15px #ff6a00;
+}
+
+/* Win popup styling */
+#winPopup {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.9);
+  padding: 30px;
+  border-radius: 14px;
+  color: white;
+  font-size: 22px;
+  z-index: 100;
+  box-shadow: 0 0 12px #000;
+}
+
+#winPopup.hidden {
+  display: none;
+}
+
+#popupReset {
+  margin-top: 20px;
+  font-size: 18px;
+  padding: 10px 20px;
+  background: #0dd427;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  color: black;
+}
+
+#popupReset:hover {
+  background: #2ecc71;
+}
+
+/* Unlock popup styling */
+#unlockPopup {
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  opacity: 1;
+  animation: fadeSlideIn 0.5s ease forwards;
+}
+
+/* Ball skin popup buttons */
+#skinOverlay button {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid gray;
+  margin: 5px;
+}
+
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -60%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
 }
