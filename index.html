@@ -1,13 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title></title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <title>Ping Pong Arena</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1 id="label"><u><i><b>Ping Pong Arena</b></i></u></h1>
 
+  <!-- Pre-Game Screen -->
+  <div id="startScreen">
+    <h1><b>Welcome to Ping Pong Arena!</b></h1>
+    <p><b>Choose your mode:</b></p>
+    <button id="singlePlayerBtn"><b>Single Player</b></button>
+    <button id="multiPlayerBtn"><b>Multiplayer</b></button>
+  </div>
+
+  <!-- Your Existing Game Code -->
+  <h1 id="label"><u><i><b>Ping Pong Arena</b></i></u></h1>
   <div id="controls">
     <button id="startBtn">Start</button>
     <button id="resetBtn">Reset</button>
@@ -19,6 +28,7 @@
       <option value="hard">Hard</option>
       <option value="super">Super</option>
       <option value="extreme">Extreme</option>
+      <option value="captain">Captain</option>
       <option value="boss">Boss</option>
     </select>
 
@@ -27,25 +37,18 @@
       <option value="single">Single Player</option>
       <option value="multi">Multiplayer</option>
     </select>
-      </div>
-   
+  </div>
+
+  <label for="labelmess">
+    <p><h4>You can unlock a <b>ball colour</b> if you defeat the <u>Computer!</u></h4></p>
+  </label>
+
   <div id="scoreboard">
     <span id="labelP1">Player score</span>: <span id="player1Score">0</span> &nbsp;&nbsp;
     <span id="labelP2">CPU score</span>: <span id="player2Score">0</span>
   </div>
 
-  <canvas id="gameCanvas" width="880" height="372"></canvas>
-
-  <div id="touch-controls">
-    <div class="left-controls">
-      <button id="p1-up">▲</button>
-      <button id="p1-down">▼</button>
-    </div>
-    <div class="right-controls">
-      <button id="p2-up">▲</button>
-      <button id="p2-down">▼</button>
-    </div>
-  </div>
+  <canvas id="gameCanvas" width="880" height="380"></canvas>
 
   <!-- Win Popup -->
   <div id="winPopup" class="hidden">
