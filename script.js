@@ -190,15 +190,15 @@ window.onload = () => {
   const ball = { x: WIDTH / 2, y: HEIGHT / 2, size: BALL_SIZE, speedX: 4, speedY: 4 };
 
   const paddleSound = new Audio('https://www.soundjay.com/buttons/button-24.mp3');
-  paddleSound.volume = 0.2;
+  paddleSound.volume = 0.4;
   const wallSound = new Audio('https://www.soundjay.com/buttons/button-50.mp3');
-  wallSound.volume = 0.4;
+  wallSound.volume = 0.6;
   const scoreSound = new Audio('https://www.soundjay.com/buttons/button-10.mp3');
-  scoreSound.volume = 0.3;
+  scoreSound.volume = 0.5;
 
   const backgroundMusic = new Audio('https://www.soundjay.com/free-music/cautious-path-01.mp3');
   backgroundMusic.loop = true;
-  backgroundMusic.volume = 0.6;
+  backgroundMusic.volume = 0.8;
 
   const musicBtn = document.createElement('button');
   musicBtn.textContent = 'Play Music';
@@ -380,6 +380,8 @@ window.onload = () => {
   function startGame() {
     if (!running) {
       backgroundMusic.play().catch(e => console.log('Music play failed:', e));
+      musicBtn.textContent = 'Pause Music';
+      musicEnabled = true;
       gameInterval = setInterval(gameLoop, 1000 / 60);
       running = true;
     }
