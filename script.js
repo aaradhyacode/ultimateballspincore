@@ -201,7 +201,7 @@ window.onload = () => {
   backgroundMusic.volume = 0.6;
 
   const musicBtn = document.createElement('button');
-  musicBtn.textContent = 'Toggle Music';
+  musicBtn.textContent = 'Play Music';
   document.getElementById('controls').appendChild(musicBtn);
 
   let musicEnabled = false;
