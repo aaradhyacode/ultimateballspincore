@@ -204,7 +204,7 @@ window.onload = () => {
   musicBtn.textContent = 'Toggle Music';
   document.getElementById('controls').appendChild(musicBtn);
 
-  let musicEnabled = true;
+  let musicEnabled = false;
   musicBtn.addEventListener('click', () => {
     musicEnabled = !musicEnabled;
     if (musicEnabled) {
