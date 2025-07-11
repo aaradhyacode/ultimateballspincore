@@ -1,10 +1,27 @@
 body {
-  background: linear-gradient(135deg, blue, gold);
+  background: linear-gradient(135deg, #495be3, #010d63);
   color: #eee;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Margarine", sans-serif;
   text-align: center;
-  margin: 20px;
+  margin: 0;
+  padding: 0;
   user-select: none;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+#label {
+  font-size: 26px;
+}
+  
+#labelmess {
+  font-size: 13px;
+  position: absolute;
+  top: 88px;
+  width: 100%;
+  height: 100%;
+  text-align: center;
 }
 
 #controls {
@@ -13,31 +30,163 @@ body {
 
 #controls button, #controls select {
   margin: 0 8px 0 0;
-  padding: 8px 14px;
-  font-size: 15px;
-  border-radius: 6px;
+  padding: 8px 13px;
+  font-size: 16px;
+  border-radius: 16px;
   border: none;
   cursor: pointer;
-  background: lime;
-  color: black;
-  transition: background-color 0.3s ease;
+  /* Emerald Green Gradient */
+  background: linear-gradient(135deg, #6dc98f 0%, #0bdb5a 40%, #0bbd28 100%);
+  color: #0c3a20; /* Darker text for contrast */
+  font-weight: bold;
+  box-shadow:
+    0 4px 16px 0 #50c87880, /* Emerald shadow */
+    0 1.5px 0 0 #d0fdd0 inset,
+    0 -1.5px 0 0 #a0e880 inset;
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform 0.18s cubic-bezier(.4,2,.6,1),
+    box-shadow 0.2s,
+    background 0.3s,
+    color 0.3s;
 }
 
+/* Crystal Shine using a pseudo-element */
+#controls button:not(#settingsBtn)::after, #controls select::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background: linear-gradient(120deg, rgba(255,255,255,0.5) 10%, rgba(255,255,255,0.1) 60%);
+  opacity: 0.6;
+  border-radius: 16px;
+  mix-blend-mode: screen;
+  transition: opacity 0.3s;
+}
+
+/* Zoom and glow on hover */
 #controls button:hover, #controls select:hover {
-  background-color: #2980b9;
-  color: white;
+  transform: scale(1.1);
+  background: linear-gradient(135deg, #a0e880 0%, #50c878 40%, #b0f2c2 100%);
+  color: #004020;
+  box-shadow:
+    0 8px 32px 0 #50c87890, /* Deeper emerald shadow */
+    0 2px 0 0 #d0fdd0 inset,
+    0 -2px 0 0 #a0e880 inset;
+}
+
+#controls button:active, #controls select:active {
+  transform: scale(0.98);
+  box-shadow:
+    0 2px 8px 0 #50c87880,
+    0 1px 0 0 #d0fdd0 inset,
+    0 -1px 0 0 #a0e880 inset;
+}
+
+/* Subtle border for extra crystal effect */
+#controls button, #controls select {
+  border: 2px solid #b0f2c2;
+}
+
+.settings-btn {
+  padding: 10px 10px;
+  margin: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  min-width: 120px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  background: #eee;
+  color: #333;
+}
+
+@keyframes spinOnce {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+#settingsBtn:hover {
+  animation: spinOnce 0.4s ease;
 }
 
 #scoreboard {
-  font-size: 20px;
+  font-size: 19px;
   margin-bottom: 12px;
   font-weight: 600;
   text-shadow: 2px 4px 2px #0006;
 }
 
-canvas {
+#labelP1 {
+  position: absolute;
+  top: 140px;
+  left: -160px;
   width: 100%;
-  max-width: 880px;
+  height: 100%;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+#player1Score {
+  position: absolute;
+  top: 140px;
+  left: -100px;
+  width: 100%;
+  height: 100%;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+#labelP2 {
+  position: absolute;
+  top: 140px;
+  right: -130px;
+  width: 100%;
+  height: 100%;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+#player2Score {
+  position: absolute;
+  top: 140px;
+  right: -188px;
+  width: 100%;
+  height: 100%;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+#gameWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+  border: 2px solid black;
+}
+
+#bgCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+#gameCanvas {
+  position: relative;
+  top: 10px;
+  z-index: 1;
+  width: 550px;
   height: auto;
   display: block;
   margin: 0 auto;
@@ -47,7 +196,27 @@ canvas {
   box-shadow: 0 0 15px #ff6a00;
 }
 
-/* Win popup styling */
+@media screen and (max-width: 370px) {
+  #gameWrapper {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+@media screen and (max-width: 1300px) {
+  #gameWrapper {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+@media screen and (max-width: 2900px) {
+  #gameWrapper {
+    width: 100%;
+    height: 100%;
+  }
+}
+
 #winPopup {
   display: flex;
   flex-direction: column;
@@ -99,6 +268,7 @@ canvas {
   margin: 5px;
 }
 
+
 @keyframes fadeSlideIn {
   from {
     opacity: 0;
@@ -110,7 +280,6 @@ canvas {
   }
 }
 
-/* Pre-Game Screen */
 #startScreen {
   position: fixed;
   top: 0;
