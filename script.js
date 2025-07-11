@@ -1,5 +1,7 @@
-// Spin Dash Arena - Full Final Code with Multi-Touch Support
 window.onload = () => {
+  const bgCanvas = document.getElementById('bgCanvas');
+  const bgCtx = bgCanvas.getContext('2d');
+
   const startScreen = document.getElementById('startScreen');
   const singlePlayerBtn = document.getElementById('singlePlayerBtn');
   const multiPlayerBtn = document.getElementById('multiPlayerBtn');
@@ -7,18 +9,305 @@ window.onload = () => {
 
   singlePlayerBtn.addEventListener('click', () => {
     modeSelect.value = 'single';
+    mode = 'single';
     startScreen.style.display = 'none';
+    modeSelect.style.display = 'none';
     resetGame();
+    
+    if (!musicEnabled) {
+    backgroundMusic.play().catch(e => console.log('Music play failed:', e));
+    musicBtn.textContent = 'Pause Music';
+    musicEnabled = true;
+  }
   });
 
   multiPlayerBtn.addEventListener('click', () => {
     modeSelect.value = 'multi';
+    mode = 'multi';
     startScreen.style.display = 'none';
+    modeSelect.style.display = 'none';
     resetGame();
+    
+      if (!musicEnabled) {
+    backgroundMusic.play().catch(e => console.log('Music play failed:', e));
+    musicBtn.textContent = 'Pause Music';
+    musicEnabled = true;
+  }
   });
 
   const canvas = document.getElementById('gameCanvas');
   const ctx = canvas.getContext('2d');
+
+function adjustCanvasWidth() {
+  const gameWrapper = document.getElementById('gameWrapper');
+  const gameCanvas = document.getElementById('gameCanvas');
+  const wrapperWidth = gameWrapper.offsetWidth;
+
+  if (wrapperWidth < 750) {
+    gameCanvas.style.width = '400px';
+    gameCanvas.style.top = '5px';
+  } else if (wrapperWidth < 1300) {
+    gameCanvas.style.width = '550px';
+    gameCanvas.style.top = '6px';
+  } else if (wrapperWidth < 2900) {
+    gameCanvas.style.width = '880px';
+    gameCanvas.style.top = '30px';
+  } else {
+    gameCanvas.style.width = '880px'; 
+    gameCanvas.style.top = '30px';
+  }
+}
+
+adjustCanvasWidth();
+window.addEventListener('resize', adjustCanvasWidth);
+
+function adjustGreenButton() {
+  const gameWrapper = document.getElementById('gameWrapper');
+  const controlButtons = document.querySelectorAll('#controls button:not(#settingsBtn):not(#skinBtn)');
+  const wrapperWidth = gameWrapper.offsetWidth;
+
+  let padding = '8px 13px';
+  let fontSize = '16px';
+
+  if (wrapperWidth < 750) {
+    padding = '8px 12px';
+    fontSize = '13px';
+  } else if (wrapperWidth < 1300) {
+    padding = '8px 13px';
+    fontSize = '16px';
+  } else if (wrapperWidth < 2900) {
+    padding = '10px 23px';
+    fontSize = '20px';
+  }
+
+  controlButtons.forEach(btn => {
+    btn.style.padding = padding;
+    btn.style.fontSize = fontSize;
+  });
+}
+
+  adjustGreenButton();
+  window.addEventListener('resize', adjustGreenButton);
+
+function adjustDifficultySize() {
+  const gameWrapper = document.getElementById('gameWrapper');
+  const difficultySelect = document.getElementById('difficulty');
+  if (!difficultySelect) return;
+
+  const wrapperWidth = gameWrapper.offsetWidth;
+  let padding = '8px 13px';
+  let fontSize = '16px';
+
+  if (wrapperWidth < 750) {
+    padding = '8px 11px';
+    fontSize = '13px';
+  } else if (wrapperWidth < 1300) {
+    padding = '8px 13px';
+    fontSize = '16px';
+  } else if (wrapperWidth < 2900) {
+    padding = '10px 18px';
+    fontSize = '20px';
+  }
+
+  difficultySelect.style.padding = padding;
+  difficultySelect.style.fontSize = fontSize;
+}
+
+adjustDifficultySize();
+window.addEventListener('resize', adjustDifficultySize);
+
+function updateSkinButtonStyle() {
+  const gameWrapper = document.getElementById('gameWrapper');
+  const skinButton = document.getElementById('skinBtn');
+
+  if (!gameWrapper || !skinButton) return;
+
+  const wrapperWidth = gameWrapper.offsetWidth;
+
+  let padding = '10px 18px';
+  let fontSize = '16px';
+
+  if (wrapperWidth < 750) {
+    padding = '8px 11px';
+    fontSize = '13px';
+  } else if (wrapperWidth < 1300) {
+    padding = '10px 18px';
+    fontSize = '16px';
+  } else if (wrapperWidth < 2900) {
+    padding = '12px 18px';
+    fontSize = '20px';
+  }
+
+  skinButton.style.padding = padding;
+  skinButton.style.fontSize = fontSize;
+  
+    skinBtn.style.background = skin.startsWith('gradient') ? getGradientStyle(skin) : skin;
+    skinBtn.style.color = 'black';
+    skinBtn.style.border = '2px solid black';
+    skinBtn.style.borderRadius = '8px';
+    skinBtn.style.fontWeight = 'bold';
+}
+
+updateSkinButtonStyle();
+window.addEventListener('resize', updateSkinButtonStyle);
+  
+function adjustLayout() {
+  const gameWrapper = document.getElementById('gameWrapper');
+  const startScreenH1 = document.querySelector('#startScreen h1');
+  const startScreenP = document.querySelector('#startScreen p');
+  const labels = document.getElementById('label');
+  const labelmess = document.getElementById('labelmess');
+  const wrapperWidth = gameWrapper.offsetWidth;
+  
+  if (wrapperWidth < 750) {
+    startScreenH1.style.fontSize = '32px';
+    startScreenH1.style.marginBottom = '4px';
+    startScreenP.style.fontSize = '20px';
+    startScreenP.style.marginBottom = '3px';
+  } else if (wrapperWidth < 1300) {
+    startScreenH1.style.fontSize = '37px';
+    startScreenH1.style.marginBottom = '5px';
+    startScreenP.style.fontSize = '26px';
+    startScreenP.style.marginBottom = '4px';
+  } else {
+    startScreenH1.style.fontSize = '46px';
+    startScreenH1.style.marginBottom = '5px';
+    startScreenP.style.fontSize = '32px';
+    startScreenP.style.marginBottom = '3px';
+  }
+
+  if (wrapperWidth < 750) {
+    label.style.fontSize = '24px';
+  } else if (wrapperWidth < 1300) {
+    label.style.fontSize = '27px';
+  } else {
+    label.style.fontSize = '36px';
+  }
+  
+    if (wrapperWidth < 750) {
+    labelmess.style.fontSize = '13px';
+    labelmess.style.top = '75px';
+  } else if (wrapperWidth < 1300) {
+    labelmess.style.fontSize = '13px';
+    labelmess.style.top = '90px';
+  } else if (wrapperWidth < 2900) {
+    labelmess.style.fontSize = '19px';
+    labelmess.style.top = '120px';
+  } else {
+    labelmess.style.fontSize = '19px';
+    labelmess.style.top = '120px';
+  }
+}
+
+adjustLayout();
+window.addEventListener('resize', adjustLayout);
+
+function adjustPlayerLabels() {
+  const gameWrapper = document.getElementById('gameWrapper');
+  const wrapperWidth = gameWrapper.offsetWidth;
+
+  const labelP1 = document.getElementById('labelP1');
+  const player1Score = document.getElementById('player1Score');
+  const labelP2 = document.getElementById('labelP2');
+  const player2Score = document.getElementById('player2Score');
+
+  let fontSize;
+  let topPosition;
+  
+  let LabelP1_Position;
+  let Player1_ScorePlace;
+  
+  let LabelP2_Position;
+  let Player2_ScorePlace;
+
+  if (wrapperWidth < 750) {
+    fontSize = '13px';
+    topPosition = '128px';
+    LabelP1_Position = '-120px';
+    Player1_ScorePlace = '-65px';
+    LabelP2_Position = '-90px';
+    Player2_ScorePlace = '-140px';
+  } else if (wrapperWidth < 1300) {
+    fontSize = '15px';
+    topPosition = '142px';
+  } else if (wrapperWidth < 2900) {
+    fontSize = '20px';
+    topPosition = '195px';
+    LabelP1_Position = '-180px';
+    Player2_ScorePlace = '-205px';
+  } else {
+    fontSize = '20px';
+    topPosition = '195px';
+    LabelP1_Position = '-180px';
+    Player2_ScorePlace = '-205px';
+  }
+
+  labelP1.style.fontSize = fontSize;
+  player1Score.style.fontSize = fontSize;
+  labelP2.style.fontSize = fontSize;
+  player2Score.style.fontSize = fontSize;
+
+  labelP1.style.top = topPosition;
+  player1Score.style.top = topPosition;
+  labelP2.style.top = topPosition;
+  player2Score.style.top = topPosition;
+
+  labelP1.style.left = LabelP1_Position;
+  player1Score.style.left = Player1_ScorePlace;
+  labelP2.style.right = LabelP2_Position;
+  player2Score.style.right = Player2_ScorePlace;
+}
+  
+adjustPlayerLabels();
+window.addEventListener('resize', adjustPlayerLabels);
+
+function adjustSettingsButton() {
+  const gameWrapper = document.getElementById('gameWrapper');
+  const controls = document.getElementById('controls');
+  if (!gameWrapper || !controls) return;
+
+  let settingsBtn = document.getElementById('settingsBtn');
+
+  if (!settingsBtn) {
+    settingsBtn = document.createElement('button');
+    settingsBtn.id = 'settingsBtn';
+    settingsBtn.textContent = '⚙️';
+    settingsBtn.style.position = 'absolute';
+    settingsBtn.style.padding = '10px 10px';
+    settingsBtn.style.marginLeft = '10px';
+    settingsBtn.style.zIndex = '10';
+    settingsBtn.style.background = 'transparent';
+    settingsBtn.style.border = 'none';
+    settingsBtn.style.boxShadow = 'none';
+    controls.appendChild(settingsBtn);
+  }
+
+  const wrapperWidth = gameWrapper.offsetWidth;
+  let top = '10px';
+  let right = '10px';
+  let fontSize = '22px';
+
+  if (wrapperWidth < 750) {
+    top = '10px';
+    right = '10px';
+    fontSize = '20px';
+  } else if (wrapperWidth < 1300) {
+    top = '12px';
+    right = '12px';
+    fontSize = '24px';
+  } else if (wrapperWidth < 2900) {
+    top = '15px';
+    right = '15px';
+    fontSize = '30px';
+  }
+
+  settingsBtn.style.top = top;
+  settingsBtn.style.right = right;
+  settingsBtn.style.fontSize = fontSize;
+}
+
+adjustSettingsButton();
+window.addEventListener('resize', adjustSettingsButton);
 
   const startBtn = document.getElementById('startBtn');
   const resetBtn = document.getElementById('resetBtn');
@@ -27,8 +316,167 @@ window.onload = () => {
   const labelP2 = document.getElementById('labelP2');
   const player1ScoreSpan = document.getElementById('player1Score');
   const player2ScoreSpan = document.getElementById('player2Score');
+const modePopup = document.createElement('div');
+Object.assign(modePopup.style, {
+  position: 'fixed',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  background: '#222',
+  color: '#e3b900',
+  padding: '20px 30px',
+  borderRadius: '10px',
+  display: 'none',
+  zIndex: 10000,
+  boxShadow: '0 0 15px rgba(0,0,0,0.7)',
+  textAlign: 'center'
+});
+modePopup.innerHTML = `<h2>Select Mode</h2>`;
+['single', 'multi'].forEach(m => {
+  const btn = document.createElement('button');
+  btn.textContent = m === 'single' ? 'Single Player' : 'Multiplayer';
+  btn.style.margin = '10px';
+  btn.style.padding = '10px 20px';
+  btn.style.fontWeight = 'bold';
+  btn.style.cursor = 'pointer';
+  btn.addEventListener('click', () => {
+    mode = m;
+    modeSelect.value = m;
+    skin = '#ffffff';
+    updateScoreLabels();
+    updateSkinButtonStyle();
+    modePopup.style.display = 'none';
+    resetGame();
+  });
+  modePopup.appendChild(btn);
+});
+document.getElementById('gameWrapper').appendChild(modePopup);
 
-  const skinColors = ['#ffffff', '#ffff00', '#00ff00', '#0000ff', '#ff0000', '#ff00ff', '#00ffff', '#ffa500',
+const difficultyPopup = document.createElement('div');
+Object.assign(difficultyPopup.style, {
+  position: 'fixed',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  background: '#222',
+  width: '400px',
+  height: '180px',
+  color: '#e3b900',
+  padding: '20px 30px',
+  borderRadius: '10px',
+  display: 'none',
+  zIndex: 10000,
+  boxShadow: '0 0 15px rgba(0,0,0,0.7)',
+  textAlign: 'center'
+});
+difficultyPopup.innerHTML = `<h2>Select Difficulty</h2>`;
+['easy', 'medium', 'hard', 'super', 'extreme', 'captain', 'boss'].forEach(diff => {
+  const btn = document.createElement('button');
+  btn.textContent = diff.charAt(0).toUpperCase() + diff.slice(1);
+  btn.style.margin = '6px';
+  btn.style.padding = '8px 18px';
+  btn.style.fontWeight = 'bold';
+  btn.style.cursor = 'pointer';
+  btn.addEventListener('click', () => {
+    difficulty = diff;
+    difficultySelect.value = diff;
+    difficultyPopup.style.display = 'none';
+    resetGame();
+  });
+  difficultyPopup.appendChild(btn);
+});
+document.getElementById('gameWrapper').appendChild(difficultyPopup);
+
+let popupJustOpened = false;
+
+function adjustDifficultyPopup() {
+  const gameWrapper = document.getElementById('gameWrapper');
+  const wrapperWidth = gameWrapper.offsetWidth;
+
+  let popupStyle = {};
+  let buttonPadding = '';
+
+  if (wrapperWidth < 750) {
+    popupStyle = {
+      width: '340px',
+      height: '150px',
+      fontSize: '14px',
+      padding: '15px 20px'
+    };
+    buttonPadding = '6px 12px';
+  } else if (wrapperWidth < 1300) {
+    popupStyle = {
+      width: '370px',
+      height: '170px',
+      fontSize: '15px',
+      padding: '18px 25px'
+    };
+    buttonPadding = '7px 14px';
+  } else if (wrapperWidth < 2900) {
+    popupStyle = {
+      width: '400px',
+      height: '180px',
+      fontSize: '16px',
+      padding: '20px 30px'
+    };
+    buttonPadding = '8px 18px';
+  } else {
+    popupStyle = {
+      width: '400px',
+      height: '180px',
+      fontSize: '16px',
+      padding: '20px 30px'
+    };
+    buttonPadding = '8px 18px';
+  }
+
+  Object.assign(difficultyPopup.style, popupStyle);
+
+  const buttons = difficultyPopup.querySelectorAll('button');
+  buttons.forEach(btn => {
+    btn.style.padding = buttonPadding;
+  });
+}
+
+adjustDifficultyPopup();
+window.addEventListener('resize', adjustDifficultyPopup);
+
+function showModePopup(e) {
+  if (startScreen.style.display === 'none') {
+    e.preventDefault();
+    modePopup.style.display = 'block';
+  }
+}
+
+function showDifficultyPopup(e) {
+  if (startScreen.style.display === 'none') {
+    e.preventDefault();
+    difficultyPopup.style.display = 'block';
+    adjustDifficultyPopup();
+    popupJustOpened = true;
+
+    setTimeout(() => {
+      popupJustOpened = false;
+    }, 200);
+  }
+}
+
+modeSelect.addEventListener('mousedown', showModePopup);
+modeSelect.addEventListener('focus', showModePopup);
+
+difficultySelect.addEventListener('mousedown', showDifficultyPopup);
+difficultySelect.addEventListener('focus', showDifficultyPopup);
+
+document.addEventListener('click', (event) => {
+  if (!modePopup.contains(event.target) && event.target !== modeSelect) {
+    modePopup.style.display = 'none';
+  }
+  if (!difficultyPopup.contains(event.target) && event.target !== difficultySelect && !popupJustOpened) {
+    difficultyPopup.style.display = 'none';
+  }
+});
+
+  const skinColors = ['#ffffff', '#ffff00', '#00ff00', '#763bf5', '#ff0000', '#ff00ff', '#009dff', '#ffa500',
     'gradient1', 'gradient2', 'gradient3', 'gradient4',
     'gradient5', 'gradient6', 'gradient7', 'gradient8',
     'gradient9', 'gradient10', 'gradient11', 'gradient12'
@@ -40,8 +488,8 @@ window.onload = () => {
   const skinBtn = document.createElement('button');
   skinBtn.id = 'skinBtn';
   skinBtn.textContent = 'Ball Skin';
-  document.getElementById('controls').appendChild(skinBtn);
-
+ document.getElementById('controls').appendChild(skinBtn);
+ 
   function getGradientStyle(name) {
     switch (name) {
       case 'gradient1': return 'linear-gradient(45deg, #ff0000, #ffff00)';
@@ -60,15 +508,6 @@ window.onload = () => {
     }
   }
 
-  function updateSkinButtonStyle() {
-    skinBtn.style.background = skin.startsWith('gradient') ? getGradientStyle(skin) : skin;
-    skinBtn.style.color = 'black';
-    skinBtn.style.border = '2px solid black';
-    skinBtn.style.padding = '10px 18px';
-    skinBtn.style.borderRadius = '8px';
-    skinBtn.style.fontWeight = 'bold';
-  }
-
   const unlockPopup = document.createElement('div');
   unlockPopup.id = 'unlockPopup';
   unlockPopup.textContent = 'New Colour Unlocked!';
@@ -79,7 +518,7 @@ window.onload = () => {
     display: 'none', zIndex: 9999, boxShadow: '0 0 15px rgba(0,0,0,0.5)',
     transition: 'opacity 0.5s ease, transform 0.5s ease'
   });
-  document.body.appendChild(unlockPopup);
+  document.getElementById('gameWrapper').appendChild(unlockPopup);
 
   function showUnlockPopup() {
     unlockPopup.style.display = 'block';
@@ -92,75 +531,142 @@ window.onload = () => {
     setTimeout(() => { unlockPopup.style.display = 'none'; }, 2200);
   }
 
+  const settingsPopup = document.createElement('div');
+settingsPopup.textContent = 'Settings';
+Object.assign(settingsPopup.style, {
+  position: 'fixed',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  background: '#222',
+  fontWeight: 'bold',
+  color: '#e3b900',
+  fontSize: '24px',
+  padding: '20px 30px',
+  borderRadius: '12px',
+  zIndex: 9999,
+  boxShadow: '0 0 12px rgba(0,0,0,0.6)',
+  display: 'none',
+  textAlign: 'center',
+  flexDirection: 'column',
+  alignItems: 'center',
+});
+document.getElementById('gameWrapper').appendChild(settingsPopup);
+  
+  const settingsOverlay = document.createElement('div');
+Object.assign(settingsOverlay.style, {
+  position: 'fixed',
+  top: '0',
+  left: '0',
+  width: '100vw',
+  height: '100vh',
+  background: 'rgba(0,0,0,0.6)',
+  display: 'none',
+  alignItems: 'center',
+  justifyContent: 'center',
+  zIndex: 9998,
+});
+settingsOverlay.appendChild(settingsPopup);
+document.getElementById('gameWrapper').appendChild(settingsOverlay);
+
+  settingsOverlay.addEventListener('click', (e) => {
+  if (e.target === settingsOverlay) {
+    settingsOverlay.style.display = 'none';
+  }
+});
+
+    const homeBtn = document.createElement('button');
+homeBtn.textContent = 'Mode';
+homeBtn.classList.add('settings-btn');
+homeBtn.style.marginTop = '20px'; 
+settingsPopup.appendChild(homeBtn);
+  
   const lockedPopup = document.createElement('div');
   lockedPopup.id = 'lockedPopup';
-  lockedPopup.textContent = 'You can get the skin after winning a match with CPU!';
+  lockedPopup.textContent = 'Win a match with CPU to get the ball colour!';
   Object.assign(lockedPopup.style, {
     position: 'fixed', top: '30%', left: '50%',
-    transform: 'translate(-50%, -50%)', background: '#222', color: 'white',
+    transform: 'translate(-50%, -50%)', background: '#06c98c', color: 'white',
     fontSize: '20px', padding: '15px 25px', borderRadius: '8px',
     display: 'none', zIndex: 9999, boxShadow: '0 0 12px rgba(0,0,0,0.6)',
     transition: 'opacity 0.5s ease, transform 0.5s ease'
   });
-  document.body.appendChild(lockedPopup);
+  document.getElementById('gameWrapper').appendChild(lockedPopup);
+
+  function showLockedPopup() {
+  lockedPopup.style.display = 'block';
+  void lockedPopup.offsetWidth;
+  lockedPopup.style.opacity = '1';
+  lockedPopup.style.transform = 'translate(-50%, -50%)';
+  setTimeout(() => {
+    lockedPopup.style.opacity = '0';
+    lockedPopup.style.transform = 'translate(-50%, -60%)';
+  }, 1800);
+  setTimeout(() => { lockedPopup.style.display = 'none'; }, 2200);
+}
 
   const skinOverlay = document.createElement('div');
   Object.assign(skinOverlay.style, {
     position: 'fixed', top: '0', left: '0', width: '100vw', height: '100vh',
-    background: 'rgba(0,0,0,0.8)', display: 'none', alignItems: 'center',
+    background: 'rgba(0,0,0,0.6)', display: 'none', alignItems: 'center',
     justifyContent: 'center', zIndex: 9998,
   });
 
   const skinContainer = document.createElement('div');
   Object.assign(skinContainer.style, {
-    background: '#333', padding: '20px', borderRadius: '12px',
+    background: '#222', padding: '20px', borderRadius: '12px',
     display: 'grid', gridTemplateColumns: 'repeat(4, 60px)', gap: '12px',
     maxHeight: '300px', maxWidth: '300px', overflowY: 'auto',
     boxShadow: '0 0 12px rgba(0,0,0,0.6)',
   });
 
   skinOverlay.appendChild(skinContainer);
-  document.body.appendChild(skinOverlay);
-
+  document.getElementById('gameWrapper').appendChild(skinOverlay);
   skinOverlay.addEventListener('click', (e) => {
     if (e.target === skinOverlay) skinOverlay.style.display = 'none';
   });
 
-  function updateSkinOverlay() {
-    skinContainer.innerHTML = '';
-    skinColors.forEach((color, i) => {
-      const btn = document.createElement('button');
-      btn.style.background = color.startsWith('gradient') ? getGradientStyle(color) : color;
-      btn.style.width = '50px';
-      btn.style.height = '50px';
-      btn.style.border = '2px solid gray';
-      btn.style.borderRadius = '50%';
-      btn.style.cursor = 'pointer';
-      btn.disabled = mode === 'single' && i > unlockedSkins;
-      if (btn.disabled) btn.innerHTML = '🔒';
+function updateSkinOverlay() {
+  skinContainer.innerHTML = '';
+  skinColors.forEach((color, i) => {
+    const btn = document.createElement('button');
+    const isLocked = (mode === 'single' && i > unlockedSkins);
+    const colorRef = color;
 
-      btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        if (btn.disabled) {
-          lockedPopup.style.display = 'block';
-          lockedPopup.style.opacity = '1';
-          lockedPopup.style.transform = 'translate(-50%, -50%)';
-          setTimeout(() => {
-            lockedPopup.style.opacity = '0';
-            lockedPopup.style.transform = 'translate(-50%, -60%)';
-          }, 1500);
-          setTimeout(() => { lockedPopup.style.display = 'none'; }, 2000);
-        } else {
-          skin = color;
-          skinOverlay.style.display = 'none';
-          updateSkinButtonStyle();
-          resetGame();
-        }
-      });
+    btn.style.background = color.startsWith('gradient') ? getGradientStyle(color) : color;
+    btn.style.width = '50px';
+    btn.style.height = '50px';
+    btn.style.border = '2px solid gray';
+    btn.style.borderRadius = '50%';
+    btn.style.cursor = 'pointer';
 
-      skinContainer.appendChild(btn);
+    if (isLocked) {
+      btn.innerHTML = '🔒';
+      btn.style.opacity = '0.6';
+      btn.style.pointerEvents = 'auto';
+      btn.setAttribute('data-locked', 'true');
+    }
+
+    btn.dataset.locked = isLocked ? 'true' : 'false';
+
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      console.log('Button clicked. Locked:', btn.dataset.locked);
+
+      if (btn.dataset.locked === 'true') {
+        console.log("Calling showLockedPopup");
+        showLockedPopup();
+      } else {
+        skin = colorRef;
+        skinOverlay.style.display = 'none';
+        updateSkinButtonStyle();
+        resetGame();
+      }
     });
-  }
+
+    skinContainer.appendChild(btn);
+  });
+}
 
   skinBtn.addEventListener('click', () => {
     updateSkinOverlay();
@@ -168,6 +674,7 @@ window.onload = () => {
   });
 
   updateSkinButtonStyle();
+  
   const WIDTH = canvas.width;
   const HEIGHT = canvas.height;
 
@@ -192,17 +699,21 @@ window.onload = () => {
   const paddleSound = new Audio('https://www.soundjay.com/buttons/button-24.mp3');
   paddleSound.volume = 0.4;
   const wallSound = new Audio('https://www.soundjay.com/buttons/button-50.mp3');
-  wallSound.volume = 0.6;
+  wallSound.volume = 0.7;
   const scoreSound = new Audio('https://www.soundjay.com/buttons/button-10.mp3');
-  scoreSound.volume = 0.5;
+  scoreSound.volume = 0.2;
+
+  const clickSound = new Audio('https://www.soundjay.com/buttons/button-20.mp3');
+  clickSound.volume = 0.6;
 
   const backgroundMusic = new Audio('https://www.soundjay.com/free-music/cautious-path-01.mp3');
   backgroundMusic.loop = true;
-  backgroundMusic.volume = 0.8;
+  backgroundMusic.volume = 0.9;
 
   const musicBtn = document.createElement('button');
   musicBtn.textContent = 'Play Music';
-  document.getElementById('controls').appendChild(musicBtn);
+  musicBtn.classList.add('settings-btn');
+settingsPopup.appendChild(musicBtn);
 
   let musicEnabled = false;
   musicBtn.addEventListener('click', () => {
@@ -210,17 +721,19 @@ window.onload = () => {
     if (musicEnabled) {
       backgroundMusic.play();
       musicBtn.textContent = 'Pause Music';
+      settingsOverlay.style.display = 'none';
     } else {
       backgroundMusic.pause();
       musicBtn.textContent = 'Play Music';
+      settingsOverlay.style.display = 'none';
     }
   });
 
   const keysPressed = {};
 
   function updateScoreLabels() {
-    labelP1.textContent = mode === 'single' ? 'Player score' : 'Player 1 score';
-    labelP2.textContent = mode === 'single' ? 'CPU score' : 'Player 2 score';
+    labelP1.textContent = mode === 'single' ? 'Player 1 score:' : 'Player 1 score:';
+    labelP2.textContent = mode === 'single' ? 'CPU score:' : 'Player 2 score:';
   }
 
   function getBallSpeed() {
@@ -301,7 +814,7 @@ window.onload = () => {
 
       if (mode === 'single') {
         if (player1Score >= 10) {
-          message = '🎉You Won!🎉';
+          message = '🎉 You Won! 🎉';
           if (unlockedSkins < skinColors.length - 1) {
             unlockedSkins++;
             localStorage.setItem('unlockedSkins', unlockedSkins);
@@ -311,7 +824,7 @@ window.onload = () => {
           message = 'CPU Won';
         }
       } else {
-        message = player1Score >= 10 ? '🎉Player 1 Wins!🎉' : '🎉Player 2 Wins!🎉';
+        message = player1Score >= 10 ? '🎉 Player 1 Wins! 🎉' : '🎉 Player 2 Wins! 🎉';
       }
 
       updateSkinButtonStyle();
@@ -321,12 +834,17 @@ window.onload = () => {
   }
 
   function update() {
-    if (keysPressed['w']) paddle1.y -= PADDLE_SPEED;
-    if (keysPressed['s']) paddle1.y += PADDLE_SPEED;
-    if (mode === 'multi') {
-      if (keysPressed['arrowup']) paddle2.y -= PADDLE_SPEED;
-      if (keysPressed['arrowdown']) paddle2.y += PADDLE_SPEED;
-    }
+if (mode === 'single') {
+  if (keysPressed['w'] || keysPressed['arrowup']) paddle1.y -= PADDLE_SPEED;
+  if (keysPressed['s'] || keysPressed['arrowdown']) paddle1.y += PADDLE_SPEED;
+} else {
+  // Player 1
+  if (keysPressed['w']) paddle1.y -= PADDLE_SPEED;
+  if (keysPressed['s']) paddle1.y += PADDLE_SPEED;
+  // Player 2
+  if (keysPressed['arrowup']) paddle2.y -= PADDLE_SPEED;
+  if (keysPressed['arrowdown']) paddle2.y += PADDLE_SPEED;
+}
 
     paddle1.y = Math.max(0, Math.min(HEIGHT - PADDLE_HEIGHT, paddle1.y));
     paddle2.y = Math.max(0, Math.min(HEIGHT - PADDLE_HEIGHT, paddle2.y));
@@ -379,9 +897,6 @@ window.onload = () => {
 
   function startGame() {
     if (!running) {
-      backgroundMusic.play().catch(e => console.log('Music play failed:', e));
-      musicBtn.textContent = 'Pause Music';
-      musicEnabled = true;
       gameInterval = setInterval(gameLoop, 1000 / 60);
       running = true;
     }
@@ -406,7 +921,33 @@ window.onload = () => {
     updateSkinButtonStyle();
   }
 
-  // Multi-Touch Paddle Support
+  function addClickSoundToElement(id) {
+  const el = document.getElementById(id);
+  if (el) {
+    el.addEventListener('click', () => {
+      clickSound.currentTime = 0;
+      clickSound.play();
+    });
+  }
+}
+  
+  addClickSoundToElement('startBtn');
+  addClickSoundToElement('resetBtn');
+  addClickSoundToElement('skinBtn');
+  addClickSoundToElement('settingsBtn');
+  addClickSoundToElement('singlePlayerBtn');
+  addClickSoundToElement('multiPlayerBtn');
+  
+  ['difficulty', 'mode'].forEach(id => {
+  const el = document.getElementById(id);
+  if (el) {
+    el.addEventListener('mousedown', () => {
+      clickSound.currentTime = 0;
+      clickSound.play();
+    });
+  }
+});
+
   function setupTouchControls() {
     const activeTouches = {};
     canvas.addEventListener('touchstart', (e) => {
@@ -431,6 +972,37 @@ window.onload = () => {
         }
       }
     });
+
+   settingsBtn.addEventListener('click', () => {
+  settingsPopup.style.display = 'flex';
+  settingsOverlay.style.display = 'flex';
+});
+
+document.addEventListener('click', (event) => {
+  const isSettings = event.target === settingsPopup || event.target === settingsBtn;
+  if (!isSettings) {
+    settingsPopup.style.display = 'block';
+  }
+});
+    
+   document.addEventListener('click', (event) => {
+  const isInsidePopup = settingsPopup.contains(event.target);
+  const isSettingsButton = settingsBtn.contains(event.target);
+
+  if (!isInsidePopup && !isSettingsButton) {
+    settingsPopup.style.display = 'none';
+    settingsOverlay.style.display = 'none';
+  }
+});
+
+homeBtn.addEventListener('click', () => {
+  settingsPopup.style.display = 'none';
+  settingsOverlay.style.display = 'none';
+  startScreen.style.display = 'flex';
+  skin = '#ffffff';
+  resetGame();
+});
+
     canvas.addEventListener('touchend', (e) => {
       for (let touch of e.changedTouches) delete activeTouches[touch.identifier];
     });
@@ -465,7 +1037,6 @@ window.onload = () => {
     updateSkinButtonStyle();
     resetGame();
   });
-
 
   document.getElementById('popupReset').addEventListener('click', () => {
     document.getElementById('winPopup').classList.add('hidden');
