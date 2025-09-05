@@ -9,28 +9,46 @@
   <link href="https://fonts.googleapis.com/css2?family=Margarine&display=swap" rel="stylesheet">
 </head>
 <body>
-
+  
 <div id="gameWrapper">
   <div id="startScreen">
+    <div class="start-overlay"></div>
+    <div class="area">
+    <ul class="circles">
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+  </div>
+
+  <div class="startContent">
     <h1><b>Welcome to Ping Pong Arena!</b></h1>
     <p><b>Choose your mode:</b></p>
     <button id="singlePlayerBtn"><b>Single Player</b></button>
     <button id="multiPlayerBtn"><b>Multiplayer</b></button>
   </div>
+</div>
 
-  <h1 id="label"><u><i><b>Ping Pong Arena</b></i></u></h1>
+  <h1 id="label"><i><b>Ping Pong Arena</b></i></h1>
   <div id="controls">
     <button id="startBtn">Start</button>
     <button id="resetBtn">Reset</button>
 
     <label for="difficulty"><b>Difficulty:</b></label>
     <select id="difficulty">
+      <option value="normal">Casual</option>
       <option value="easy">Easy</option>
       <option value="medium">Medium</option>
       <option value="hard">Hard</option>
       <option value="super">Super</option>
       <option value="extreme">Extreme</option>
-      <option value="captain">Captain</option>
       <option value="boss">Boss</option>
     </select>
 
@@ -57,7 +75,7 @@
     <div id="popupMessage"></div>
     <button id="popupReset">Reset</button>
   </div>
-    
+
 </div>
 
   <script src="script.js" defer></script>
