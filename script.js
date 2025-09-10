@@ -148,7 +148,7 @@ function adjustCanvasWidth() {
 
   if (wrapperWidth < 580) {
     gameCanvas.style.width = '358px';
-    gameCanvas.style.top = '-8px';
+    gameCanvas.style.top = '-5px';
   } else if (wrapperWidth < 815) {
     gameCanvas.style.width = '400px';
     gameCanvas.style.top = '5px';
@@ -326,7 +326,14 @@ function adjustPlayerLabels() {
   let LabelP2_Position;
   let Player2_ScorePlace;
 
-  if (wrapperWidth < 815) {
+  if (wrapperWidth < 580) {
+    fontSize = '12px';
+    topPosition = '125px';
+    LabelP1_Position = '-120px';
+    Player1_ScorePlace = '-65px';
+    LabelP2_Position = '-90px';
+    Player2_ScorePlace = '-140px';
+  } else if (wrapperWidth < 815) {
     fontSize = '13px';
     topPosition = '128px';
     LabelP1_Position = '-120px';
@@ -3133,4 +3140,3 @@ homeBtn.addEventListener('click', () => {
   updateSkinButtonStyle();
   resetGame();
 };
-
