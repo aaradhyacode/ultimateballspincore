@@ -172,7 +172,10 @@ function adjustGreenButton() {
   let padding = '8px 13px';
   let fontSize = '16px';
 
-  if (wrapperWidth < 815) {
+  if (wrapperWidth < 360) {
+    padding = '6px 12px';
+    fontSize = '11px';
+  } else if (wrapperWidth < 815) {
     padding = '8px 12px';
     fontSize = '13px';
   } else if (wrapperWidth < 1300) {
@@ -201,7 +204,10 @@ function adjustDifficultySize() {
   let padding = '8px 13px';
   let fontSize = '16px';
 
-  if (wrapperWidth < 815) {
+  if (wrapperWidth < 360) {
+    padding = '6px 12px';
+    fontSize = '11px';
+  } else if (wrapperWidth < 815) {
     padding = '8px 11px';
     fontSize = '13px';
   } else if (wrapperWidth < 1300) {
@@ -230,7 +236,10 @@ function updateSkinButtonStyle() {
   let padding = '10px 18px';
   let fontSize = '16px';
 
-  if (wrapperWidth < 815) {
+  if (wrapperWidth < 360) {
+    padding = '6px 11px';
+    fontSize = '11px';
+  } else if (wrapperWidth < 815) {
     padding = '8px 11px';
     fontSize = '13px';
   } else if (wrapperWidth < 1300) {
@@ -261,7 +270,6 @@ function adjustLayout() {
   const labels = document.getElementById('label');
   const labelmess = document.getElementById('labelmess');
   const wrapperWidth = gameWrapper.offsetWidth;
-  const wrapperHeight = gameWrapper.offsetHeight;
   
   if (wrapperWidth < 815) {
     startScreenH1.style.fontSize = '32px';
@@ -280,8 +288,8 @@ function adjustLayout() {
     startScreenP.style.marginBottom = '6px';
   }
 
-  if (wrapperHeight < 200) {
-    label.style.fontSize = '0px';
+  if (wrapperWidth < 360) {
+    label.style.fontSize = '18px';
   } else if (wrapperWidth < 815) {
     label.style.fontSize = '24px';
   } else if (wrapperWidth < 1300) {
