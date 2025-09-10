@@ -146,7 +146,10 @@ function adjustCanvasWidth() {
   const gameCanvas = document.getElementById('gameCanvas');
   const wrapperWidth = gameWrapper.offsetWidth;
 
-  if (wrapperWidth < 815) {
+  if (wrapperWidth < 360) {
+    gameCanvas.style.width = '360px';
+    gameCanvas.style.top = '5px';
+  } else if (wrapperWidth < 815) {
     gameCanvas.style.width = '400px';
     gameCanvas.style.top = '5px';
   } else if (wrapperWidth < 1300) {
@@ -168,15 +171,11 @@ function adjustGreenButton() {
   const gameWrapper = document.getElementById('gameWrapper');
   const controlButtons = document.querySelectorAll('#controls button:not(#settingsBtn):not(#skinBtn)');
   const wrapperWidth = gameWrapper.offsetWidth;
-  const wrapperHeight = gameWrapper.offsetHeight;
 
   let padding = '8px 13px';
   let fontSize = '16px';
 
-  if (wrapperHeight < 360) {
-    padding = '6px 12px';
-    fontSize = '11px';
-  } else if (wrapperWidth < 815) {
+  if (wrapperWidth < 815) {
     padding = '8px 12px';
     fontSize = '13px';
   } else if (wrapperWidth < 1300) {
@@ -202,14 +201,10 @@ function adjustDifficultySize() {
   if (!difficultySelect) return;
 
   const wrapperWidth = gameWrapper.offsetWidth;
-  const wrapperHeight = gameWrapper.offsetHeight;
   let padding = '8px 13px';
   let fontSize = '16px';
 
-  if (wrapperHeight < 360) {
-    padding = '6px 12px';
-    fontSize = '11px';
-  } else if (wrapperWidth < 815) {
+  if (wrapperWidth < 815) {
     padding = '8px 11px';
     fontSize = '13px';
   } else if (wrapperWidth < 1300) {
@@ -234,15 +229,11 @@ function updateSkinButtonStyle() {
   if (!gameWrapper || !skinButton) return;
 
   const wrapperWidth = gameWrapper.offsetWidth;
-  const wrapperHeight = gameWrapper.offsetHeight;
 
   let padding = '10px 18px';
   let fontSize = '16px';
 
-  if (wrapperHeight < 360) {
-    padding = '6px 11px';
-    fontSize = '11px';
-  } else if (wrapperWidth < 815) {
+  if (wrapperWidth < 815) {
     padding = '8px 11px';
     fontSize = '13px';
   } else if (wrapperWidth < 1300) {
@@ -273,7 +264,6 @@ function adjustLayout() {
   const labels = document.getElementById('label');
   const labelmess = document.getElementById('labelmess');
   const wrapperWidth = gameWrapper.offsetWidth;
-  const wrapperHeight = gameWrapper.offsetHeight;
   
   if (wrapperWidth < 815) {
     startScreenH1.style.fontSize = '32px';
@@ -292,9 +282,7 @@ function adjustLayout() {
     startScreenP.style.marginBottom = '6px';
   }
 
-  if (wrapperHeight < 360) {
-    label.style.fontSize = '18px';
-  } else if (wrapperWidth < 815) {
+  if (wrapperWidth < 815) {
     label.style.fontSize = '24px';
   } else if (wrapperWidth < 1300) {
     label.style.fontSize = '27px';
