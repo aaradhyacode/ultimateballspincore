@@ -261,6 +261,7 @@ function adjustLayout() {
   const labels = document.getElementById('label');
   const labelmess = document.getElementById('labelmess');
   const wrapperWidth = gameWrapper.offsetWidth;
+  const wrapperHeight = gameWrapper.offsetHeight;
   
   if (wrapperWidth < 815) {
     startScreenH1.style.fontSize = '32px';
@@ -279,7 +280,7 @@ function adjustLayout() {
     startScreenP.style.marginBottom = '6px';
   }
 
-  if (wrapperWidth < 200) {
+  if (wrapperHeight < 200) {
     label.style.fontSize = '0px';
   } else if (wrapperWidth < 815) {
     label.style.fontSize = '24px';
