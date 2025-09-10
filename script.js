@@ -148,7 +148,7 @@ function adjustCanvasWidth() {
 
   if (wrapperWidth < 580) {
     gameCanvas.style.width = '358px';
-    gameCanvas.style.top = '2px';
+    gameCanvas.style.top = '-8px';
   } else if (wrapperWidth < 815) {
     gameCanvas.style.width = '400px';
     gameCanvas.style.top = '5px';
