@@ -105,7 +105,7 @@ function updateControlsScreen() {
   const device = document.getElementById('device');
   const xBtn = document.getElementById('controlsXBtn');
 
-  if (wrapperWidth < 800) {
+  if (wrapperWidth < 815) {
     title.style.fontSize = '20px';
     title.style.marginBottom = '6px';
     mobile.style.fontSize = '14px';
@@ -146,7 +146,7 @@ function adjustCanvasWidth() {
   const gameCanvas = document.getElementById('gameCanvas');
   const wrapperWidth = gameWrapper.offsetWidth;
 
-  if (wrapperWidth < 800) {
+  if (wrapperWidth < 815) {
     gameCanvas.style.width = '400px';
     gameCanvas.style.top = '5px';
   } else if (wrapperWidth < 1300) {
@@ -172,7 +172,7 @@ function adjustGreenButton() {
   let padding = '8px 13px';
   let fontSize = '16px';
 
-  if (wrapperWidth < 800) {
+  if (wrapperWidth < 815) {
     padding = '8px 12px';
     fontSize = '13px';
   } else if (wrapperWidth < 1300) {
@@ -201,7 +201,7 @@ function adjustDifficultySize() {
   let padding = '8px 13px';
   let fontSize = '16px';
 
-  if (wrapperWidth < 800) {
+  if (wrapperWidth < 815) {
     padding = '8px 11px';
     fontSize = '13px';
   } else if (wrapperWidth < 1300) {
@@ -230,7 +230,7 @@ function updateSkinButtonStyle() {
   let padding = '10px 18px';
   let fontSize = '16px';
 
-  if (wrapperWidth < 800) {
+  if (wrapperWidth < 815) {
     padding = '8px 11px';
     fontSize = '13px';
   } else if (wrapperWidth < 1300) {
@@ -262,7 +262,7 @@ function adjustLayout() {
   const labelmess = document.getElementById('labelmess');
   const wrapperWidth = gameWrapper.offsetWidth;
   
-  if (wrapperWidth < 800) {
+  if (wrapperWidth < 815) {
     startScreenH1.style.fontSize = '32px';
     startScreenH1.style.marginBottom = '4px';
     startScreenP.style.fontSize = '20px';
@@ -279,7 +279,7 @@ function adjustLayout() {
     startScreenP.style.marginBottom = '6px';
   }
 
-  if (wrapperWidth < 800) {
+  if (wrapperWidth < 815) {
     label.style.fontSize = '24px';
   } else if (wrapperWidth < 1300) {
     label.style.fontSize = '27px';
@@ -287,7 +287,7 @@ function adjustLayout() {
     label.style.fontSize = '36px';
   }
   
-    if (wrapperWidth < 800) {
+    if (wrapperWidth < 815) {
     labelmess.style.fontSize = '13px';
     labelmess.style.top = '75px';
   } else if (wrapperWidth < 1300) {
@@ -323,7 +323,7 @@ function adjustPlayerLabels() {
   let LabelP2_Position;
   let Player2_ScorePlace;
 
-  if (wrapperWidth < 800) {
+  if (wrapperWidth < 815) {
     fontSize = '13px';
     topPosition = '128px';
     LabelP1_Position = '-120px';
@@ -408,7 +408,7 @@ function adjustSettingsButton() {
   let right = '10px';
   let fontSize = '22px';
 
-  if (wrapperWidth < 800) {
+  if (wrapperWidth < 815) {
     top = '12px';
     right = '12px';
     fontSize = '35px';
@@ -652,7 +652,7 @@ function adjustDifficultyPopup() {
   let popupStyle = {};
   let buttonPadding = '';
 
-  if (wrapperWidth < 800) {
+  if (wrapperWidth < 815) {
     popupStyle = {
       width: '340px',
       height: '250px',
@@ -875,7 +875,7 @@ function updateHelpBtnPosition() {
   const triangle = document.querySelector('.triangle');
   const circle = document.querySelector('.center-circle');
 
-  if (wrapperWidth < 800) {
+  if (wrapperWidth < 815) {
     helpBtn.style.top = '70px';
     helpBtn.style.right = '28px';
     helpBtn.style.padding = '16px 16px';
@@ -1154,7 +1154,7 @@ function updateSpinnerLayout() {
 
     if (!spinBtn || !helpDemoWrapper || !luckySpinText || !prizeText || !helpPopupCloseBtn) return;
     
-  if (wrapperWidth < 800) {
+  if (wrapperWidth < 815) {
     helpDemoWrapper.style.transform = 'scale(0.75)';
     spinBtn.style.marginTop = '-22px';
     spinBtn.style.width = '98px';
