@@ -146,7 +146,7 @@ function adjustCanvasWidth() {
   const gameCanvas = document.getElementById('gameCanvas');
   const wrapperWidth = gameWrapper.offsetWidth;
 
-  if (wrapperWidth < 360) {
+  if (wrapperWidth < 580) {
     gameCanvas.style.width = '360px';
     gameCanvas.style.top = '5px';
   } else if (wrapperWidth < 815) {
@@ -205,7 +205,7 @@ function adjustDifficultySize() {
   let fontSize = '16px';
 
   if (wrapperWidth < 815) {
-    padding = '8px 11px';
+    padding = '8px 8px';
     fontSize = '13px';
   } else if (wrapperWidth < 1300) {
     padding = '8px 13px';
@@ -234,7 +234,7 @@ function updateSkinButtonStyle() {
   let fontSize = '16px';
 
   if (wrapperWidth < 815) {
-    padding = '8px 11px';
+    padding = '8px 10px';
     fontSize = '13px';
   } else if (wrapperWidth < 1300) {
     padding = '10px 18px';
