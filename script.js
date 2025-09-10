@@ -3133,3 +3133,4 @@ homeBtn.addEventListener('click', () => {
   updateSkinButtonStyle();
   resetGame();
 };
+
