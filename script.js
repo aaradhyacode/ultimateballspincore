@@ -279,7 +279,9 @@ function adjustLayout() {
     startScreenP.style.marginBottom = '6px';
   }
 
-  if (wrapperWidth < 815) {
+  if (wrapperWidth < 200) {
+    label.style.fontSize = '0px';
+  } else if (wrapperWidth < 815) {
     label.style.fontSize = '24px';
   } else if (wrapperWidth < 1300) {
     label.style.fontSize = '27px';
