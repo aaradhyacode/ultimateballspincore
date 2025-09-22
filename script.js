@@ -105,7 +105,17 @@ function updateControlsScreen() {
   const device = document.getElementById('device');
   const xBtn = document.getElementById('controlsXBtn');
 
-  if (wrapperWidth < 815) {
+  if (wrapperHeight < 352) {
+    title.style.fontSize = '18px';
+    title.style.marginBottom = '4px';
+    mobile.style.fontSize = '12px';
+    mobile.style.marginBottom = '2px';
+    device.style.fontSize = '12px';
+    closeBtn.style.fontSize = '13px';
+    closeBtn.style.marginTop = '0px';
+    closeBtn.style.padding = '6px 16px';
+    xBtn.style.fontSize = '34px';
+  } else if (wrapperWidth < 815) {
     title.style.fontSize = '20px';
     title.style.marginBottom = '6px';
     mobile.style.fontSize = '14px';
@@ -205,7 +215,7 @@ function adjustDifficultySize() {
   let fontSize = '16px';
 
   if (wrapperWidth < 815) {
-    padding = '8px 8px';
+    padding = '8px 6px';
     fontSize = '13px';
   } else if (wrapperWidth < 1300) {
     padding = '8px 13px';
@@ -3130,6 +3140,8 @@ homeBtn.addEventListener('click', () => {
     updateSkinButtonStyle();
     resetGame();
   });
+
+  document.addEventListener("contextmenu", (event) => event.preventDefault());
 
   document.getElementById('popupReset').addEventListener('click', () => {
     document.getElementById('winPopup').classList.add('hidden');
