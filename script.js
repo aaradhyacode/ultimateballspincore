@@ -98,6 +98,7 @@ function updateControlsScreen() {
   if (!controlsScreen) return;
   const gameWrapper = document.getElementById('gameWrapper');
   const wrapperWidth = gameWrapper.offsetWidth;
+  const wrapperHeight = gameWrapper.offsetHeight;
 
   const title = controlsScreen.querySelector('h2');
   const closeBtn = document.getElementById('controlsCloseBtn');
@@ -2561,7 +2562,6 @@ function drawRect(x, y, width, height, color, radius = 3) {
 }
 
 function drawCircle(x, y, r, skin) {
-  // Handle special custom designs
   if (skin === 'starRed') {
     drawStarRed(ctx, x, y, r);
     return;
@@ -2652,7 +2652,6 @@ function drawCircle(x, y, r, skin) {
     }
     ctx.fillStyle = gradient;
   } else {
-    // Plain color fallback
     ctx.fillStyle = skin;
     shadowColor = skin;
   }
@@ -2955,6 +2954,8 @@ if (mode === 'single') {
     }
   }
 
+  let gameActive = false;
+
   function stopGame() {
     clearInterval(gameInterval);
     running = false;
@@ -2981,12 +2982,14 @@ if (mode === 'single') {
     updateSkinButtonStyle();
   }
 
-    singlePlayerBtn.addEventListener('click', () => {
+  singlePlayerBtn.addEventListener('click', () => {
     modeSelect.value = 'single';
     mode = 'single';
     startScreen.style.display = 'none';
     modeSelect.style.display = 'none';
     showControlsScreen(resetGame);
+    dontShowPlayer2Controls();
+    updateMobileControlsLayout();
     resetGame();
     
     if (!musicEnabled) {
@@ -3002,6 +3005,8 @@ if (mode === 'single') {
     startScreen.style.display = 'none';
     modeSelect.style.display = 'none';
     showControlsScreen(resetGame);
+    showPlayer2Controls();
+    updateMobileControlsLayout();
     resetGame();
     
       if (!musicEnabled) {
@@ -3108,6 +3113,209 @@ homeBtn.addEventListener('click', () => {
   }
   setupTouchControls();
 
+function setupMobileArrowButtons() {
+  const moveUpBtnP1 = document.getElementById('moveUpP1');
+  const moveDownBtnP1 = document.getElementById('moveDownP1');
+  const moveUpBtnP2 = document.getElementById('moveUpP2');
+  const moveDownBtnP2 = document.getElementById('moveDownP2');
+
+  let intervalUpP1, intervalDownP1, intervalUpP2, intervalDownP2;
+
+  function startMovingPaddle(paddle, direction) {
+    return setInterval(() => {
+      if (!gameActive) return;
+      if (direction === 'up') {
+        paddle.y = Math.max(0, paddle.y - PADDLE_SPEED);
+      } else {
+        paddle.y = Math.min(canvas.height - PADDLE_HEIGHT, paddle.y + PADDLE_SPEED);
+      }
+      draw();
+    }, 16);
+  }
+
+  function clearMovementInterval(interval) {
+    if (interval) clearInterval(interval);
+  }
+
+  moveUpBtnP1.addEventListener('touchstart', e => {
+    e.preventDefault();
+    intervalUpP1 = startMovingPaddle(paddle1, 'up');
+  }, { passive: false });
+  moveUpBtnP1.addEventListener('mousedown', e => {
+    e.preventDefault();
+    intervalUpP1 = startMovingPaddle(paddle1, 'up');
+  });
+  moveUpBtnP1.addEventListener('touchend', e => clearMovementInterval(intervalUpP1));
+  moveUpBtnP1.addEventListener('mouseup', e => clearMovementInterval(intervalUpP1));
+  moveUpBtnP1.addEventListener('touchcancel', e => clearMovementInterval(intervalUpP1));
+  moveUpBtnP1.addEventListener('mouseleave', e => clearMovementInterval(intervalUpP1));
+
+  moveDownBtnP1.addEventListener('touchstart', e => {
+    e.preventDefault();
+    intervalDownP1 = startMovingPaddle(paddle1, 'down');
+  }, { passive: false });
+  moveDownBtnP1.addEventListener('mousedown', e => {
+    e.preventDefault();
+    intervalDownP1 = startMovingPaddle(paddle1, 'down');
+  });
+  moveDownBtnP1.addEventListener('touchend', e => clearMovementInterval(intervalDownP1));
+  moveDownBtnP1.addEventListener('mouseup', e => clearMovementInterval(intervalDownP1));
+  moveDownBtnP1.addEventListener('touchcancel', e => clearMovementInterval(intervalDownP1));
+  moveDownBtnP1.addEventListener('mouseleave', e => clearMovementInterval(intervalDownP1));
+
+  moveUpBtnP2.addEventListener('touchstart', e => {
+    e.preventDefault();
+    intervalUpP2 = startMovingPaddle(paddle2, 'up');
+  }, { passive: false });
+  moveUpBtnP2.addEventListener('mousedown', e => {
+    e.preventDefault();
+    intervalUpP2 = startMovingPaddle(paddle2, 'up');
+  });
+  moveUpBtnP2.addEventListener('touchend', e => clearMovementInterval(intervalUpP2));
+  moveUpBtnP2.addEventListener('mouseup', e => clearMovementInterval(intervalUpP2));
+  moveUpBtnP2.addEventListener('touchcancel', e => clearMovementInterval(intervalUpP2));
+  moveUpBtnP2.addEventListener('mouseleave', e => clearMovementInterval(intervalUpP2));
+
+  moveDownBtnP2.addEventListener('touchstart', e => {
+    e.preventDefault();
+    intervalDownP2 = startMovingPaddle(paddle2, 'down');
+  }, { passive: false });
+  moveDownBtnP2.addEventListener('mousedown', e => {
+    e.preventDefault();
+    intervalDownP2 = startMovingPaddle(paddle2, 'down');
+  });
+  moveDownBtnP2.addEventListener('touchend', e => clearMovementInterval(intervalDownP2));
+  moveDownBtnP2.addEventListener('mouseup', e => clearMovementInterval(intervalDownP2));
+  moveDownBtnP2.addEventListener('touchcancel', e => clearMovementInterval(intervalDownP2));
+  moveDownBtnP2.addEventListener('mouseleave', e => clearMovementInterval(intervalDownP2));
+  
+  function handleUpP1(e) {
+    if (!gameActive) return;
+    e.preventDefault();
+    paddle1.y = Math.max(0, paddle1.y - PADDLE_SPEED * 2);
+    draw();
+  }
+  function handleDownP1(e) {
+    if (!gameActive) return;
+    e.preventDefault();
+    paddle1.y = Math.min(canvas.height - PADDLE_HEIGHT, paddle1.y + PADDLE_SPEED * 2);
+    draw();
+  }
+  function handleUpP2(e) {
+    if (!gameActive) return;
+    e.preventDefault();
+    paddle2.y = Math.max(0, paddle2.y - PADDLE_SPEED * 2);
+    draw();
+  }
+  function handleDownP2(e) {
+    if (!gameActive) return;
+    e.preventDefault();
+    paddle2.y = Math.min(canvas.height - PADDLE_HEIGHT, paddle2.y + PADDLE_SPEED * 2);
+    draw();
+  }
+
+  moveUpBtnP1.addEventListener('touchstart', handleUpP1, { passive: false });
+  moveUpBtnP1.addEventListener('click', handleUpP1);
+  moveDownBtnP1.addEventListener('touchstart', handleDownP1, { passive: false });
+  moveDownBtnP1.addEventListener('click', handleDownP1);
+
+  moveUpBtnP2.addEventListener('touchstart', handleUpP2, { passive: false });
+  moveUpBtnP2.addEventListener('click', handleUpP2);
+  moveDownBtnP2.addEventListener('touchstart', handleDownP2, { passive: false });
+  moveDownBtnP2.addEventListener('click', handleDownP2);
+}
+setupMobileArrowButtons();
+
+function showPlayer2Controls() {
+  const moveUpBtnP2 = document.getElementById('moveUpP2');
+  const moveDownBtnP2 = document.getElementById('moveDownP2');
+
+  if (moveUpBtnP2 && moveDownBtnP2 && mode === 'multi') {
+    moveUpBtnP2.style.display = 'block';
+    moveDownBtnP2.style.display = 'block';
+  }
+}
+
+function dontShowPlayer2Controls() {
+  const moveUpBtnP2 = document.getElementById('moveUpP2');
+  const moveDownBtnP2 = document.getElementById('moveDownP2');
+
+  if (moveUpBtnP2 && moveDownBtnP2 && mode === 'single') {
+    moveUpBtnP2.style.display = 'none';
+    moveDownBtnP2.style.display = 'none';
+  }
+}
+
+function isMobileDevice() {
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}
+
+function toggleMobileControlsVisibility() {
+  const mobileControlsP1 = document.getElementById('mobile-controls-p1');
+  const mobileControlsP2 = document.getElementById('mobile-controls-p2');
+  
+  if (isMobileDevice()) {
+    if (mobileControlsP1) mobileControlsP1.style.display = 'flex';
+    if (mobileControlsP2) mobileControlsP2.style.display = 'flex';
+  } else {
+    if (mobileControlsP1) mobileControlsP1.style.display = 'none';
+    if (mobileControlsP2) mobileControlsP2.style.display = 'none';
+  }
+}
+toggleMobileControlsVisibility();
+
+function updateMobileControlsLayout() {
+  const mobileControlsP1 = document.getElementById('mobile-controls-p1');
+  const mobileControlsP2 = document.getElementById('mobile-controls-p2');
+  const moveUpBtnP1 = document.getElementById('moveUpP1');
+  const moveDownBtnP1 = document.getElementById('moveDownP1');
+
+  mobileControlsP1.style.display = 'none';
+  mobileControlsP2.style.display = 'none';
+  mobileControlsP1.classList.remove('single-up');
+  mobileControlsP1.classList.remove('single-down');
+
+  if (isMobileDevice()) {
+    if (mode === 'single') {
+      mobileControlsP1.style.display = 'flex';
+      mobileControlsP1.classList.add('single-up');
+      moveUpBtnP1.style.display = 'flex';
+      moveDownBtnP1.style.display = 'none';
+
+      let downContainer = document.getElementById('mobile-controls-p1-down');
+      if (!downContainer) {
+        downContainer = document.createElement('div');
+        downContainer.id = 'mobile-controls-p1-down';
+        downContainer.style.position = 'fixed';
+        downContainer.style.left = '30px';
+        downContainer.style.top = '70%';
+        downContainer.style.transform = 'translateY(-50%)';
+        downContainer.style.zIndex = '999';
+        downContainer.style.display = 'flex';
+        downContainer.classList.add('single-down');
+        document.body.appendChild(downContainer);
+      }
+      downContainer.style.display = 'flex';
+      downContainer.appendChild(moveDownBtnP1);
+      moveDownBtnP1.style.display = 'flex';
+
+      if (mobileControlsP2) mobileControlsP2.style.display = 'none';
+    } else if (mode === 'multi') {
+      mobileControlsP1.style.display = 'flex';
+      mobileControlsP2.style.display = 'flex';
+      moveUpBtnP1.style.display = 'flex';
+      moveDownBtnP1.style.display = 'flex';
+
+      let downContainer = document.getElementById('mobile-controls-p1-down');
+      if (downContainer && downContainer.contains(moveDownBtnP1)) {
+        mobileControlsP1.appendChild(moveDownBtnP1);
+        downContainer.style.display = 'none';
+      }
+    }
+  }
+}
+updateMobileControlsLayout();
+
   document.addEventListener('keydown', e => {
     const key = e.key.toLowerCase();
     if (["arrowup", "arrowdown", " "].includes(key)) e.preventDefault();
@@ -3122,6 +3330,7 @@ homeBtn.addEventListener('click', () => {
     unlockAudio();
     stopGame();
     runCanvasCountdown(() => {
+      gameActive = true;
       startGame();
     });
   });
