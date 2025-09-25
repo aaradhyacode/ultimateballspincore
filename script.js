@@ -161,7 +161,7 @@ function adjustCanvasWidth() {
     gameCanvas.style.width = '358px';
     gameCanvas.style.top = '-5px';
   } else if (wrapperWidth < 815) {
-    gameCanvas.style.width = '400px';
+    gameCanvas.style.width = '410px';
     gameCanvas.style.top = '5px';
   } else if (wrapperWidth < 1300) {
     gameCanvas.style.width = '550px';
@@ -3361,3 +3361,4 @@ updateMobileControlsLayout();
   updateSkinButtonStyle();
   resetGame();
 };
+
