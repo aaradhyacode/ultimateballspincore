@@ -362,6 +362,61 @@ body {
   }
 }
 
+.triangle-button {
+  width: 52px;
+  height: 52px;
+  background: #fff;
+  border: none;
+  border-radius: 20%;
+  display: flex;
+  opacity: 0.4;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.triangle-up {
+  width: 0;
+  height: 0;
+  border-left: 11px solid transparent;
+  border-right: 11px solid transparent;
+  border-bottom: 21px solid #777;
+  margin: auto;
+}
+
+.triangle-down {
+  width: 0;
+  height: 0;
+  border-left: 11px solid transparent;
+  border-right: 11px solid transparent;
+  border-top: 21px solid #777;
+  margin: auto;
+}
+
+#mobile-controls-p1, #mobile-controls-p2 {
+  display: none;
+}
+
+.single-up {
+  right: 30px !important;
+  left: auto !important;
+  top: 70%;
+  bottom: 50px;
+  transform: translateY(-50%);
+  flex-direction: column;
+  gap: 0;
+}
+
+.single-down {
+  left: 30px !important;
+  right: auto !important;
+  top: 70%;
+  bottom: 50px;
+  transform: translateY(-50%);
+  flex-direction: column;
+  gap: 0;
+}
+
 .selected-button {
   background-color: #cfcfcf;
   color: black;
