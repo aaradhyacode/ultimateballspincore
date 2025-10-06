@@ -11,6 +11,16 @@ body {
   overflow: hidden;
 }
 
+button:focus,
+button:active {
+  outline: none;
+  box-shadow: none;
+}
+
+button:focus:not(:focus-visible) {
+  outline: none;
+}
+
 #label {
   font-size: 26px;
 }
