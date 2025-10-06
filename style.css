@@ -61,6 +61,7 @@ button:focus:not(:focus-visible) {
     box-shadow 0.2s,
     background 0.3s,
     color 0.3s;
+    -webkit-tap-highlight-color: transparent;
 }
 
 /* Crystal Shine using a pseudo-element */
