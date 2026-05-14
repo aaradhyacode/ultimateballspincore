@@ -1,340 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Shadow Maze</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Margarine&display=swap" rel="stylesheet">
-</head>
-<body>
-
-  <div class="context">
-  </div>
-  <div class="area">
-      <ul class="circles">
-              <li></li>
-              <li></li>
-              <li></li>
-              <li></li>
-              <li></li>
-              <li></li>
-              <li></li>
-              <li></li>
-              <li></li>
-              <li></li>
-      </ul>
-  </div>
-
-<div id="gameWrapper">
-  <div id="welcomeScreen">
-    <h2>Shadow Maze</h2>
-    <h3>The Dark Labyrinth</h2>
-    <button id="playButton">PLAY</button>
-
-    <button id="dailyRewardsButton">🎁</button>
-    <button id="charactersButton">👤 Characters</button>
-    <button id="driftButton">Drifts</button>
-    <button id="settingsButton">⚙️</button>
-
-    <button id="luckySpinButton">
-      <span class="background-circle"></span>
-      <span class="center-circle"></span>
-    </button>
-    <span class="triangle"></span>
-
-    <button id="shopButton">
-      <span class="shop-icon">🛒</span>
-    </button>
-
-    <div id="dailyRewardsPopup" class="hidden">
-      <span id="closeDailyPopup" class="close">&times;</span>
-      <h2>Daily Rewards!</h2>
-      <h3 id="dailyRewardDay">Day 1</h3>
-      <p id="rewardAmount">+20 Coins</p>
-      <button id="claimReward">Claim</button>
-    </div>
-  </div>
-
-  <div id="startScreen">
-    <button id="backButton">⬅ Back</button>
-    <h2>Choose Level</h2>
-    <button class="levelButton" data-level="1">Level 1</button>
-    <button class="levelButton" data-level="2" disabled>Level 2</button>
-    <button class="levelButton" data-level="3" disabled>Level 3</button>
-    <button class="levelButton" data-level="4" disabled>Level 4</button>
-    <button class="levelButton" data-level="5" disabled>Level 5</button>
-    <button class="levelButton" data-level="6" disabled>Level 6</button>
-    <button class="levelButton" data-level="7" disabled>Level 7</button>
-    <button class="levelButton" data-level="8" disabled>Level 8</button>
-    <button class="levelButton" data-level="9" disabled>Level 9</button>
-    <button class="levelButton" data-level="10" disabled>Level 10</button>
-    <button class="levelButton" data-level="11" disabled>Level 11</button>
-    <button class="levelButton" data-level="12" disabled>Level 12</button>
-    <button class="levelButton" data-level="13" disabled>Level 13</button>
-    <button class="levelButton" data-level="14" disabled>Level 14</button>
-    <button class="levelButton" data-level="15" disabled>Level 15</button>
-    <button class="levelButton" data-level="16" disabled>Level 16</button>
-    <button class="levelButton" data-level="17" disabled>Level 17</button>
-    <button class="levelButton" data-level="18" disabled>Level 18</button>
-    <button class="levelButton" data-level="19" disabled>Level 19</button>
-    <button class="levelButton" data-level="20" disabled>Level 20</button>
-    <button class="levelButton" data-level="21" disabled>Level 21</button>
-    <button class="levelButton" data-level="22" disabled>Level 22</button>
-    <button class="levelButton" data-level="23" disabled>Level 23</button>
-    <button class="levelButton" data-level="24" disabled>Level 24</button>
-    <button class="levelButton" data-level="25" disabled>Level 25</button>
-  </div>
-
-  <canvas id="gameCanvas" style="display:none;"></canvas>
-  <div id="joystickContainer">
-    <div id="joystickBase">
-      <div id="joystickHandle"></div>
-    </div>
-  </div>
-
-  <div id="coinDisplay">Coins: 0</div>
-  <div id="gemDisplay">Gems: 0</div>
-
-  <div id="popup" class="hidden">
-    <div id="popupMessage"></div>
-    <div class="star-container">
-      <div class="star">
-        <i></i><i></i><i></i><i></i><i></i>
-        <i></i><i></i><i></i><i></i><i></i>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Ping Pong Arena</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Margarine&display=swap" rel="stylesheet">
+  </head>
+  <body>
+  
+  <div id="gameWrapper">
+    <div id="startScreen">
+      <div class="start-overlay"></div>
+      <div class="area">
+        <ul class="circles">
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
       </div>
-      <div class="star">
-        <i></i><i></i><i></i><i></i><i></i>
-        <i></i><i></i><i></i><i></i><i></i>
-      </div>
-      <div class="star">
-        <i></i><i></i><i></i><i></i><i></i>
-        <i></i><i></i><i></i><i></i><i></i>
+
+      <div class="startContent">
+        <h1><b>Welcome to Ping Pong Arena!</b></h1>
+        <p><b>Choose your mode:</b></p>
+        <button id="singlePlayerBtn"><b>Single Player</b></button>
+        <button id="multiPlayerBtn"><b>Multiplayer</b></button>
       </div>
     </div>
-    <div id="popupHint"></div>
-    <button id="restartButton">Restart</button>
-    <button id="homeButton">Home</button>
-    <button id="nextLevelButton" style="display: none;">Next Level</button>
-    <div id="popupEnter"></div>
-  </div>
 
-  <div id="charactersPopup" class="hidden">
-    <button id="closeCharacters">&times;</button>
-    <h3>Choose Character</h3>
+    <h1 id="label"><i><b>Ping Pong Arena</b></i></h1>
+    <div id="controls">
+      <button id="startBtn">Start</button>
+      <button id="resetBtn">Reset</button>
 
-    <div class="tabButtons">
-      <button id="commonTab" class="tabButton active">Common</button>
-      <button id="rareTab" class="tabButton">Rare</button>
-      <button id="epicTab" class="tabButton">Epic</button>
+      <label for="difficulty"><b>Difficulty:</b></label>
+      <select id="difficulty">
+        <option value="normal">Casual</option>
+        <option value="easy">Easy</option>
+        <option value="medium">Medium</option>
+        <option value="hard">Hard</option>
+        <option value="super">Super</option>
+        <option value="extreme">Extreme</option>
+        <option value="boss">Boss</option>
+      </select>
+
+      <label for="mode"></label>
+      <select id="mode">
+        <option value="single">Single Player</option>
+        <option value="multi">Multiplayer</option>
+      </select>
     </div>
 
-    <div id="characterOptions">
-      <!-- Common characters (shop-only) -->
-      <div class="characterOption" data-color="#3a64f0" data-category="common">
-        <div class="characterPreview" style="background: linear-gradient(135deg, #3a64f0, #3a64f0);"></div>
-        <span>Blue</span>
-      </div>
-      <div class="characterOption" data-color="#ff0000" data-category="common">
-        <div class="characterPreview" style="background: linear-gradient(135deg, #ff0000, #ff0000);"></div>
-        <span>Red</span>
-      </div>
-      <div class="characterOption" data-color="#ffd700" data-category="common">
-        <div class="characterPreview" style="background: linear-gradient(135deg, #ffd700, #ffd700);"></div>
-        <span>Gold</span>
-      </div>
-      <div class="characterOption" data-color="#11ba60" data-category="common">
-        <div class="characterPreview" style="background: linear-gradient(135deg, #11ba60, #11ba60);"></div>
-        <span>Emerald</span>
-      </div>
-      <div class="characterOption" data-color="#9b22f2" data-category="common">
-        <div class="characterPreview" style="background: linear-gradient(135deg, #9b22f2, #9b22f2);"></div>
-        <span>Purple</span>
-      </div>
-      <div class="characterOption" data-color="#ff8000" data-category="common">
-        <div class="characterPreview" style="background: linear-gradient(135deg, #ff8000, #ff8000);"></div>
-        <span>Orange</span>
-      </div>
+    <h4 id="labelmess">
+      <p>You can unlock a <b>ball colour</b> if you defeat the <u>Computer!</u></p>
+    </h4>
 
-      <!-- Rare characters (shop-only) -->
-      <div class="characterOption" data-character="dice" data-category="rare">
-        <canvas class="characterPreview" width="30" height="30"></canvas>
-        <span class="diceText">Dice</span>
-      </div>
-      <div class="characterOption" data-character="character1" data-category="rare">
-        <canvas class="characterPreview" width="30" height="30"></canvas>
-        <span class="characterText">Sleepy</span>
-      </div>
-      <div class="characterOption" data-character="character2" data-category="rare">
-        <canvas class="characterPreview" width="30" height="30"></canvas>
-        <span class="characterText">Happy</span>
-      </div>
-      <div class="characterOption" data-character="character3" data-category="rare">
-        <canvas class="characterPreview" width="30" height="30"></canvas>
-        <span class="characterText">Cool</span>
-      </div>
-
-      <!-- Epic characters (shop-only) -->
-      <div class="characterOption" data-color="#00ccff" data-category="epic">
-        <div class="characterPreview" style="background: linear-gradient(135deg, #00ccff, #9b22f2);"></div>
-        <span>Night Sky</span>
-      </div>
-      <div class="characterOption" data-color="#f6b2a1" data-category="epic">
-        <div class="characterPreview" style="background: linear-gradient(135deg, #f77cda, #f5e767);"></div>
-        <span>Pink Citrus</span>
-      </div>
-      <div class="characterOption" data-color="#ff66ff" data-category="epic">
-        <div class="characterPreview" style="background: linear-gradient(135deg, #ff66ff, #ff1493);"></div>
-        <span>Berry Flow</span>
-      </div>
-      <div class="characterOption" data-color="#7efc17" data-category="epic">
-        <div class="characterPreview" style="background: linear-gradient(135deg, #40e0d0, #ffd700);"></div>
-        <span>Golden Beach</span>
-      </div>
-      <div class="characterOption" data-color="#c51f86" data-category="epic">
-        <div class="characterPreview" style="background: linear-gradient(135deg, #9c24f2, #ed1a1a);"></div>
-        <span>Velvet Dream</span>
-      </div>
-      <div class="characterOption" data-color="#ff9900" data-category="epic">
-        <div class="characterPreview" style="background: linear-gradient(135deg, #c0e359, #1b4079);"></div>
-        <span>Mystic Forest</span>
-      </div>
-      <div class="characterOption" data-color="#8f475d" data-category="epic">
-        <div class="characterPreview" style="background: linear-gradient(135deg, #22577a, #fb3640);"></div>
-        <span>Blushy Ruby</span>
-      </div>
+    <div id="scoreboard">
+      <span id="labelP1">Player score</span><span id="player1Score">0</span> &nbsp;&nbsp;
+      <span id="labelP2">CPU score</span><span id="player2Score">0</span>
     </div>
-    <div id="characterPagination" class="charPageNav">
-      <button id="prevCharPage" class="pageNav">⬅ Prev</button>
-      <span id="charPageIndicator">Page 1 / 1</span>
-      <button id="nextCharPage" class="pageNav">Next ➡</button>
+
+    <canvas id="bgCanvas" width="1920" height="1080"></canvas>
+    <canvas id="gameCanvas" width="880" height="380"></canvas>
+    <div id="mobile-controls-p1" style="position:fixed;bottom:50px;left:30px;z-index:999;display:flex;flex-direction:column;gap:35px;">
+      <button id="moveUpP1" class="triangle-button">
+        <div class="triangle-up"></div>
+      </button>
+      <button id="moveDownP1" class="triangle-button">
+        <div class="triangle-down"></div>
+      </button>
     </div>
-  </div>
-
-  <div id="driftPopup" class="hidden">
-    <button id="closedrift">×</button>
-    <h3>Choose Movement Animation</h3>
-    <div id="animationOptions">
-      <button class="animationOption" data-effect="none">None</button>
-      <div class="animationOption" data-effect="dust">
-        <canvas class="effectPreview" width="100" height="100"></canvas>
-        <span class="label">Dust</span>
-      </div>
-      <div class="animationOption" data-effect="triangle">
-        <canvas class="effectPreview" width="100" height="100"></canvas>
-        <span class="label">Triangle</span>
-      </div>
-      <div class="animationOption" data-effect="sparks">
-        <canvas class="effectPreview" width="100" height="100"></canvas>
-        <span class="label">Sparks</span>
-      </div>
-      <div class="animationOption" data-effect="wave">
-        <canvas class="effectPreview" width="100" height="100"></canvas>
-        <span class="label">Wave</span>
-      </div>
-      <div class="animationOption" data-effect="rainbow">
-        <canvas class="effectPreview" width="100" height="100"></canvas>
-        <span class="label">Rainbow</span>
-      </div>
-      <div class="animationOption" data-effect="yellowStars">
-        <canvas class="effectPreview" width="100" height="100"></canvas>
-        <span class="label">Yellow Star</span>
-      </div>
-      <div class="animationOption" data-effect="pinkStars">
-        <canvas class="effectPreview" width="100" height="100"></canvas>
-        <span class="label">Pink Star</span>
-      </div>
+    <div id="mobile-controls-p2" style="position:fixed;bottom:50px;right:30px;z-index:999;display:flex;flex-direction:column;gap:35px;">
+      <button id="moveUpP2" class="triangle-button">
+        <div class="triangle-up"></div>
+      </button>
+      <button id="moveDownP2" class="triangle-button">
+        <div class="triangle-down"></div>
+      </button>
     </div>
-    <div id="animationPagination">
-      <button id="prevPage" class="pageNav">⬅ Prev</button>
-      <span id="pageIndicator">Page 1</span>
-      <button id="nextPage" class="pageNav">Next ➡</button>
+
+    <div id="winPopup" class="hidden">
+      <div id="popupMessage"></div>
+      <button id="popupReset">Reset</button>
     </div>
+
   </div>
 
-  <div id="keyPopup" class="popup hidden">
-  </div>
-
-  <div id="buyEffectPopup" class="hidden">
-    <div id="buyEffectContent">
-      <h3 id="buyEffectTitle">Get Effect</h3>
-      <p id="buyEffectPrice">Price: 50 Coins</p>
-      <button id="cancelPurchase">Cancel</button>
-      <button id="confirmPurchase">50 Coins</button>
-    </div>
-  </div>
-
-  <div id="unlockedEffectPopup" class="hidden">
-    <div id="unlockedEffectContent">
-      <h3 id="unlockedEffectTitle">Animation Unlocked!</h3>
-      <button id="continueUnlock">Continue</button>
-      <button id="equipUnlock">Equip</button>
-    </div>
-  </div>
-
-  <div id="notEnoughCoinsPopup" class="hidden">
-    <div id="notEnoughCoinsContent">
-      <h3>Not Enough Coins 💰</h3>
-      <p>You don't have enough coins to buy this animation.</p>
-      <button id="closeNotEnoughCoins">OK</button>
-    </div>
-  </div>
-
-  <div id="buyCharacterPopup" class="hidden">
-    <div id="buyCharacterContent">
-      <h3 id="buyCharacterTitle">Get Character</h3>
-      <p id="buyCharacterPrice">Price: 50 Gems</p>
-      <button id="cancelCharacterPurchase">Cancel</button>
-      <button id="confirmCharacterPurchase">50 Gems</button>
-    </div>
-  </div>
-
-  <div id="unlockedCharacterPopup" class="hidden">
-    <div id="unlockedCharacterContent">
-      <h3 id="unlockedCharacterTitle">Character Unlocked!</h3>
-      <button id="continueCharacterUnlock">Continue</button>
-      <button id="equipCharacterUnlock">Equip</button>
-    </div>
-  </div>
-
-  <div id="notEnoughGemsPopup" class="hidden">
-    <div id="notEnoughGemsContent">
-      <h3>Not Enough Gems 💎</h3>
-      <p>You don't have enough gems to buy this character.</p>
-      <button id="closeNotEnoughGems">OK</button>
-    </div>
-  </div>
-
-  <div id="luckySpinPopup" class="hidden">
-    <button id="closeLuckySpin">&times;</button>
-    <h3>Lucky Spin!</h3>
-    <p>Get a chance to win coins or gems!</p>
-    <canvas id="spinWheelCanvas" width="300" height="300"></canvas>
-    <button id="spinButton">Spin</button>
-    <p id="spinResult" style="margin-top: 10px; font-weight: bold;"></p>
-  </div>
-
-  <div id="shopPopup" class="hidden">
-    <button id="closeShop">&times;</button>
-    <h3>Character Shop!</h3>
-    <p>Spin to unlock new characters!</p>
-    <canvas id="shopSpinWheelCanvas" width="300" height="300"></canvas>
-    <button id="shopSpinButton">15 Gems</button>
-    <p id="shopSpinResult" style="margin-top: 10px; font-weight: bold;"></p>
-  </div>
-
-  <div id="unlockCharacterPopup" class="hidden">
-    <div id="unlockCharacterContent">
-      <h3 id="unlockCharacterTitle">Unlock Character?</h3>
-      <p id="unlockCharacterMessage">This character can be unlocked in the shop!</p>
-      <button id="cancelUnlockCharacter">Cancel</button>
-      <button id="goToShopUnlock">Go to Shop</button>
-    </div>
-  </div>
-</div>
-
-  <script src="game.js"></script>
-</body>
-
+  <script src="script.js" defer></script>
+  </body>
 </html>
